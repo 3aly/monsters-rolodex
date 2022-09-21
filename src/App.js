@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import React, { Component } from "react";
 import "./App.css";
 import { CardList } from "./components/card-list/card-list.component.jsx";
+import { Search } from "./components/search/search.component";
 
 class App extends Component {
   constructor() {
@@ -9,6 +10,7 @@ class App extends Component {
 
     this.state = {
       monsters: [],
+      search: "",
     };
   }
   componentDidMount() {
@@ -17,9 +19,19 @@ class App extends Component {
       .then((users) => this.setState({ monsters: users.data }));
   }
   render() {
+    const { monsters, search } = this.state;
+    const filterdMonsters = monsters.filter((monster) =>
+      monster.first_name.toLowerCase().includes(search.toLowerCase())
+    );
     return (
       <div className="App">
-        <CardList monsters={this.state.monsters}></CardList>
+        <Search
+          placeholder={"Search.."}
+          handleChange={(e) => {
+            this.setState({ search: e.target.value });
+          }}
+        ></Search>
+        <CardList monsters={filterdMonsters}></CardList>
       </div>
     );
   }

@@ -2,7 +2,6 @@ import React from "react";
 import "../card/card.styles.css";
 
 export const Card = (props) => {
-  console.log(props.monster.first_name, "single card");
   return (
     <div className="card-container">
       <img
