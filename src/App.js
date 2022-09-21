@@ -13,11 +13,16 @@ class App extends Component {
       search: "",
     };
   }
+
   componentDidMount() {
     fetch("https://reqres.in/api/users/")
       .then((response) => response.json())
       .then((users) => this.setState({ monsters: users.data }));
   }
+
+  handelChange = (e) => {
+    this.setState({ search: e.target.value });
+  };
   render() {
     const { monsters, search } = this.state;
     const filterdMonsters = monsters.filter((monster) =>
@@ -25,11 +30,10 @@ class App extends Component {
     );
     return (
       <div className="App">
+        <h1>Sims City</h1>
         <Search
           placeholder={"Search.."}
-          handleChange={(e) => {
-            this.setState({ search: e.target.value });
-          }}
+          handleChange={this.handelChange}
         ></Search>
         <CardList monsters={filterdMonsters}></CardList>
       </div>
